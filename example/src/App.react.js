@@ -14,9 +14,11 @@ import {
   Error503,
   Empty,
   Email,
+  Landing,
   ProfilePage,
 } from "./pages";
 
+import Onboarding from "./Onboarding.react";
 import HomePage from "./HomePage.react";
 import FormElementsPage from "./FormElementsPage.react";
 import PricingCardsPage from "./interface/PricingCardsPage.react";
@@ -50,8 +52,10 @@ function App(props: Props): React.Node {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/homepage" component={HomePage} />
         <Route exact path="/cards" component={CardsDesignPage} />
+        <Route exact path="/onboarding" component={Onboarding} />
         <Route exact path="/charts" component={ChartsPage} />
         <Route exact path="/pricing-cards" component={PricingCardsPage} />
         <Route exact path="/form-elements" component={FormElementsPage} />

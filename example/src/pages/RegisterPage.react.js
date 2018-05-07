@@ -27,6 +27,11 @@ function RegisterPage(props: Props): React.Node {
           label="Password"
           placeHolder="Password"
         />
+        <FormTextInput
+          type="Zip Code"
+          label="Zip Code"
+          placeHolder="Enter Zip Code"
+        />
         <FormCheckboxInput label="Agree to the terms and policy" />
       </FormCard>
     </StandaloneFormPage>

@@ -21,24 +21,26 @@ type Props = {|
 
 type navItem = {|
   +value: string,
-  +to?: string,
+  +to: string,
   +icon?: string,
   +subItems?: Array<navItem>,
 |};
 
-const navBarItems: Array<navItem> = [
+const navBarItems: Array<navItem> = Array(
   { value: "Home", to: "/", icon: "home" },
   {
     value: "Interface",
+    to: null,
     icon: "box",
     subItems: [
-      { value: "Cards Design", to: "/cards" },
-      { value: "Charts", to: "/charts" },
-      { value: "Pricing Cards", to: "/pricing-cards" },
+      { value: "Cards Design", to: "/cards", icon: null },
+      { value: "Charts", to: "/charts", icon: null },
+      { value: "Pricing Cards", to: "/pricing-cards", icon: null },
     ],
   },
   {
     value: "Components",
+    to: null,
     icon: "calendar",
     subItems: [
       { value: "Maps", to: "/maps" },
@@ -49,6 +51,7 @@ const navBarItems: Array<navItem> = [
   },
   {
     value: "Pages",
+    to: null,
     icon: "file",
     subItems: [
       { value: "Profile", to: "/profile" },
@@ -70,10 +73,21 @@ const navBarItems: Array<navItem> = [
   { value: "Gallery", to: "/gallery", icon: "image" },
   {
     value: "Documentation",
-    to: "/docs",
+    to: "/docs/intro",
     icon: "file-text",
-  },
-];
+    subItems: [
+      { value: "Alerts", to: "/docs/alerts" },
+      { value: "Avatars", to: "/docs/avatars" },
+      { value: "Buttons", to: "/docs/store" },
+      { value: "Cards", to: "/docs/blog" },
+      { value: "Charts", to: "/docs/maps" },
+      { value: "Colors", to: "/docs/icons" },
+      { value: "Form Components", to: "/docs/form-components" },
+      { value: "Tags", to: "/docs/tags" },
+      { value: "Typography", to: "/docs/typography" },
+    ],
+  }
+);
 
 class SiteWrapper extends React.Component<Props, void> {
   render(): React.Node {
@@ -84,7 +98,7 @@ class SiteWrapper extends React.Component<Props, void> {
             <Site.Logo
               href={"/"}
               alt="Tabler React"
-              src="./demo/brand/tabler.svg"
+              src="./demo/brand/patch_logo.png"
             />
             <div className="d-flex order-lg-2 ml-auto">
               <Nav.Item type="div" className="d-none d-md-flex">
@@ -100,88 +114,80 @@ class SiteWrapper extends React.Component<Props, void> {
                 </Button>
               </Nav.Item>
 
-              <Dropdown
-                triggerContent={<span className="nav-unread" />}
-                isNavLink={true}
-                icon="bell"
-                desktopOnly
-                items={
-                  <React.Fragment>
-                    <Dropdown.Item className="d-flex">
-                      <Avatar
-                        className="mr-3 align-self-center"
-                        imageURL="demo/faces/male/41.jpg"
-                      />
-                      <div>
-                        <strong>Nathan</strong> pushed new commit: Fix page load
-                        performance issue.
-                        <Text color="muted" size="small">
-                          10 minutes ago
-                        </Text>
-                      </div>
-                    </Dropdown.Item>
-                    <Dropdown.Item className=" d-flex">
-                      <Avatar
-                        className="mr-3 align-self-center"
-                        imageURL={"demo/faces/female/1.jpg"}
-                      />
-                      <div>
-                        <strong>Alice</strong> started new task: Tabler UI
-                        design.
-                        <Text color="muted" size="small">
-                          1 hour ago
-                        </Text>
-                      </div>
-                    </Dropdown.Item>
-                    <Dropdown.Item className="d-flex">
-                      <Avatar
-                        className="mr-3 align-self-center"
-                        imageURL={"demo/faces/female/18.jpg"}
-                      />
-                      <div>
-                        <strong>Rose</strong> deployed new version of NodeJS
-                        REST Api V3
-                        <Text color="muted" size="small">
-                          2 hours ago
-                        </Text>
-                      </div>
-                    </Dropdown.Item>
-                    <Dropdown.ItemDivider />
-                    <Dropdown.Item className="text-center text-muted-dark">
-                      Mark all as read
-                    </Dropdown.Item>
-                  </React.Fragment>
-                }
-                position="right"
-                arrow={true}
-              />
+              <Dropdown desktopOnly={true}>
+                <Dropdown.Trigger type="link" className="nav-link" icon="bell">
+                  <span className="nav-unread" />
+                </Dropdown.Trigger>
+                <Dropdown.Menu position="right" arrow={true}>
+                  <Dropdown.Item className="d-flex">
+                    <Avatar
+                      className="mr-3 align-self-center"
+                      imageURL="demo/faces/male/41.jpg"
+                    />
+                    <div>
+                      <strong>Nathan</strong> pushed new commit: Fix page load
+                      performance issue.
+                      <Text color="muted" size="small">
+                        10 minutes ago
+                      </Text>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item className=" d-flex">
+                    <Avatar
+                      className="mr-3 align-self-center"
+                      imageURL={"demo/faces/female/1.jpg"}
+                    />
+                    <div>
+                      <strong>Alice</strong> started new task: Tabler UI design.
+                      <Text color="muted" size="small">
+                        1 hour ago
+                      </Text>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item className="d-flex">
+                    <Avatar
+                      className="mr-3 align-self-center"
+                      imageURL={"demo/faces/female/18.jpg"}
+                    />
+                    <div>
+                      <strong>Rose</strong> deployed new version of NodeJS REST
+                      Api V3
+                      <Text color="muted" size="small">
+                        2 hours ago
+                      </Text>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.ItemDivider />
+                  <Dropdown.Item className="text-center text-muted-dark">
+                    Mark all as read
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
 
-              <Dropdown
-                isNavLink
-                triggerClassName="pr-0 leading-none"
-                triggerContent={
-                  <React.Fragment>
-                    <Avatar imageURL={"./demo/faces/female/25.jpg"} />
-                    <span className="ml-2 d-none d-lg-block">
-                      <span className="text-default">Jane Pearson</span>
-                      <small className="text-muted d-block mt-1">
-                        Administrator
-                      </small>
-                    </span>
-                  </React.Fragment>
-                }
-                position="right"
-                arrow={true}
-                itemsObject={[
-                  { icon: "user", value: "Profile" },
-                  { icon: "settings", value: "Settings" },
-                  { icon: "mail", value: "Inbox", badge: "6" },
-                  { icon: "send", value: "Message" },
-                  { isDivider: true },
-                  { icon: "help-circle", value: "Need help?" },
-                  { icon: "log-out", value: "Sign out" },
-                ]}
-              />
+              <Dropdown>
+                <Dropdown.Trigger
+                  type="link"
+                  className="nav-link pr-0 leading-none"
+                >
+                  <Avatar imageURL={"./demo/faces/female/25.jpg"} />
+                  <span className="ml-2 d-none d-lg-block">
+                    <span className="text-default">Jane Pearson</span>
+                    <small className="text-muted d-block mt-1">
+                      Administrator
+                    </small>
+                  </span>
+                </Dropdown.Trigger>
+
+                <Dropdown.Menu position="right" arrow={true}>
+                  <Dropdown.Item icon="user" value="Profile" />
+                  <Dropdown.Item icon="settings" value="Settings" />
+                  <Dropdown.Item icon="mail" badge="6" value="Inbox" />
+                  <Dropdown.Item icon="send" value="Message" />
+                  <Dropdown.ItemDivider />
+                  <Dropdown.Item icon="help-circle" value="Need help?" />
+                  <Dropdown.Item icon="log-out" value="Sign out" />
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
             <a
               className="header-toggler d-lg-none ml-3 ml-lg-0"
